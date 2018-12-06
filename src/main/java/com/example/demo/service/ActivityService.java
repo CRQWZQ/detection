@@ -7,6 +7,8 @@ import com.example.demo.result.ResultData;
 import com.example.demo.result.ResultList;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * 杭州蓝诗网络科技有限公司 版权所有 © Copyright 2018<br>
  *
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Service;
  */
 public interface ActivityService {
 
-    ResultList<Activity> findActivityByShopId(Long shopId);
+    List<Activity> findActivityByShopId(Long shopId);
 
-    ResultData<Activity> saveActivity(ActivityDto activityDto);
+    Activity saveActivity(ActivityDto activityDto);
 }

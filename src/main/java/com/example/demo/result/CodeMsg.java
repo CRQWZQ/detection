@@ -21,6 +21,10 @@ public class CodeMsg {
 
     public static final String PARAM_ERROR = "10001"; //请求参数错误
 
+    public static final String SQL_ERROR = "10002";//SQL操作出现错误
+
+    private static final String SERVIER_FAILED = "10000";//服务端出现错误
+
     public static final String EXCEL_UNKNOWN_ERROR = "40000"; //HSSF 解析excel无数据导出
 
     public static final String EXCEL_BAD_FORMAT = "40001"; // HSSF 解析excel失败

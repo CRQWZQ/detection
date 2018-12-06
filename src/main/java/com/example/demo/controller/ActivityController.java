@@ -1,20 +1,18 @@
 package com.example.demo.controller;
 
-import com.example.demo.dao.ActivityMapper;
 import com.example.demo.exception.BusinessException;
 import com.example.demo.model.dto.ActivityDto;
 import com.example.demo.model.entity.Activity;
 import com.example.demo.result.CodeMsg;
 import com.example.demo.result.ResultData;
 import com.example.demo.service.ActivityService;
-import com.example.demo.untils.UuidUtil;
 import com.mysql.cj.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 杭州蓝诗网络科技有限公司 版权所有 © Copyright 2018<br>
@@ -25,19 +23,21 @@ import org.springframework.web.bind.annotation.RestController;
  * @Author: <a href="wangzhiqiang@quannengzhanggui.cn">wzq</a>
  */
 @RestController
+@RequestMapping(value = "/activity")
 public class ActivityController {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(ActivityController.class);
+    protected  Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private ActivityService activityService;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public ResultData<Activity> saveActivity(ActivityDto activityDto){
-
+    ResultData<Activity> saveActivity(HttpServletRequest request, @RequestBody ActivityDto activityDto){
+        ResultData<Activity> resultData = new ResultData<>();
         parameterCalibration(activityDto);
-
-        return activityService.saveActivity(activityDto);
+        Activity activity = activityService.saveActivity(activityDto);
+        resultData.setData(activity);
+        return resultData;
     }
 
     private void parameterCalibration(ActivityDto activityDto) {

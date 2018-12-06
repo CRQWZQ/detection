@@ -1,13 +1,14 @@
 package com.example.demo.service;
 
 import com.example.demo.dao.ActivityMapper;
+import com.example.demo.exception.BusinessException;
 import com.example.demo.model.dto.ActivityDto;
 import com.example.demo.model.entity.Activity;
-import com.example.demo.result.Result;
-import com.example.demo.result.ResultData;
-import com.example.demo.result.ResultList;
+import com.example.demo.result.CodeMsg;
 import com.example.demo.untils.UuidUtil;
 import com.github.pagehelper.PageHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,18 +26,19 @@ import java.util.List;
 @Service
 public class ActivityServiceImpl  implements ActivityService{
 
+    protected final Logger LOGGER = LoggerFactory.getLogger(getClass());
+
     @Autowired
     private ActivityMapper activityMapper;
     @Override
-    public ResultList<Activity> findActivityByShopId(Long shopId) {
-        PageHelper.startPage(0, 10);
-        List<Activity> activityList = activityMapper.selectActivityList(shopId);
+    public List<Activity> findActivityByShopId(Long shopId) {
+//        PageHelper.startPage(0, 10);
+        return activityMapper.selectActivityList(shopId);
 
-        return null;
     }
 
     @Override
-    public ResultData<Activity> saveActivity(ActivityDto activityDto) {
+    public Activity saveActivity(ActivityDto activityDto) {
         Activity activity = new Activity();
         activity.setUuid(UuidUtil.uuid());
         activity.setStatus(activityDto.getStatus());
@@ -46,7 +48,12 @@ public class ActivityServiceImpl  implements ActivityService{
         activity.setModifyTime(new Date());
         activity.setCreateTime(new Date());
         int activityId = activityMapper.insertActivity(activity);
-
-        return null;
+        if (activityId < 100) {
+            LOGGER.warn("saveActivity is error | shopId ={} | activityName ={}", activityDto.getShopId(), activityDto.getName());
+            throw new BusinessException(CodeMsg.SQL_ERROR, "saveActivity is error:shopId=" + activityDto.getShopId());
+        }
+        activity.setId(activityId);
+       return activity;
     }
+
 }

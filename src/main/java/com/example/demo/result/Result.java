@@ -3,7 +3,7 @@ package com.example.demo.result;
 import lombok.Data;
 import java.io.Serializable;
 
-@Data
+
 public class Result implements Serializable{
 
     public String getResultCode() {

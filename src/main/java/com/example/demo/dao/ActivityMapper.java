@@ -3,7 +3,6 @@ package com.example.demo.dao;
 import com.example.demo.model.entity.Activity;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Component;
-import tk.mybatis.mapper.common.BaseMapper;
 
 import java.util.List;
 
@@ -36,5 +35,6 @@ public interface ActivityMapper  {
     @Select("select count(*) from activity where shop_id=#{shopId} and is_delete=0 and status='NORMAL'")
     int selectActivityCount(@Param("shopId") Long shopId);
 
-
+    @Update("update activity set status =#{status}, modify_time=now() where id=#{id}")
+    int updateActivityStatus(@Param("id") int id, @Param("status") String status);
 }
