@@ -1,18 +1,32 @@
 package com.example.demo.controller;
 
+<<<<<<< HEAD
+=======
+import com.example.demo.dao.ActivityMapper;
+>>>>>>> origin/master
 import com.example.demo.exception.BusinessException;
 import com.example.demo.model.dto.ActivityDto;
 import com.example.demo.model.entity.Activity;
 import com.example.demo.result.CodeMsg;
 import com.example.demo.result.ResultData;
 import com.example.demo.service.ActivityService;
+<<<<<<< HEAD
+=======
+import com.example.demo.untils.UuidUtil;
+>>>>>>> origin/master
 import com.mysql.cj.util.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+<<<<<<< HEAD
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+>>>>>>> origin/master
 
 /**
  * 杭州蓝诗网络科技有限公司 版权所有 © Copyright 2018<br>
