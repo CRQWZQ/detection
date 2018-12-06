@@ -5,6 +5,7 @@ import com.example.demo.model.dto.ActivityDto;
 import com.example.demo.model.entity.Activity;
 import com.example.demo.result.CodeMsg;
 import com.example.demo.result.ResultData;
+import com.example.demo.result.ResultList;
 import com.example.demo.service.ActivityService;
 import com.mysql.cj.util.StringUtils;
 import org.slf4j.Logger;
@@ -18,6 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 
 /**
@@ -44,6 +47,16 @@ public class ActivityController {
         Activity activity = activityService.saveActivity(activityDto);
         resultData.setData(activity);
         return resultData;
+    }
+    @RequestMapping(value = "/findActivity", method = RequestMethod.GET)
+    ResultList<List<Activity>> findActivity(HttpServletRequest request, Long shopId){
+        ResultList resultList = new ResultList<>();
+        if (shopId == null) {
+            throw new BusinessException(CodeMsg.PARAM_ERROR, "请求shopId为空");
+        }
+        List<Activity> activityList = activityService.findActivityByShopId(shopId);
+        resultList.setData(activityList);
+        return resultList;
     }
 
     private void parameterCalibration(ActivityDto activityDto) {

@@ -19,6 +19,8 @@ public class ResultList<T> extends Result{
         this.data = data;
     }
 
+    public ResultList(){}
+
     public List<T> getData() {
         return data;
     }
