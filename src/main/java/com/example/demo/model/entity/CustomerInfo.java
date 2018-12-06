@@ -31,15 +31,15 @@ public class CustomerInfo extends CommonDomain{
     @Column(name = "avg_number")
     private int avgNumber;//周平均单数
     @Column(name = "credit")
-    private String credit;//买家信用
+    private String credit;//信用
     @Column(name = "real_name_auth")
-    private String realNameAuth;//是否实名
+    private String realNameAuth;
     @Column(name = "sex")
     private String sex;//性别
     @Column(name = "tao_score")
-    private String taoScore;//淘气值
+    private String taoScore;
     @Column(name = "mongodb_id")
-    private String mongodbId;//mongodb主键
+    private String mongodbId;
 
     public String getRelationUuid() {
         return relationUuid;
