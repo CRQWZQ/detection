@@ -31,6 +31,10 @@ public class ResultPagedList<T> extends Result {
         this.pageNo = pagedModel.getPageNo();
     }
 
+    public ResultPagedList(List<T> data) {
+        this.data = data;
+    }
+
     public List<T> getData() {
         return data;
     }

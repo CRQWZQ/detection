@@ -22,6 +22,10 @@ public class ResultData<T> extends Result {
         this.data = data;
     }
 
+    public ResultData(T data) {
+        this.data = data;
+    }
+
     public T getData() {
         return data;
     }

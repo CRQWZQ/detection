@@ -41,12 +41,12 @@ public class ActivityController {
     private ActivityService activityService;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    ResultData<Activity> saveActivity(HttpServletRequest request, @RequestBody ActivityDto activityDto){
-        ResultData<Activity> resultData = new ResultData<>();
+    ResultData<Boolean> saveActivity(HttpServletRequest request, @RequestBody ActivityDto activityDto){
+        ResultData<Boolean> resultData = new ResultData<>();
         parameterCalibration(activityDto);
-        Activity activity = activityService.saveActivity(activityDto);
-        resultData.setData(activity);
-        return resultData;
+        activityService.saveActivity(activityDto);
+        resultData.setData(true);
+        return new ResultData<>(true);
     }
 
     @RequestMapping(value = "/findActivity", method = RequestMethod.GET)

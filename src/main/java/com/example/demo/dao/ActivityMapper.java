@@ -17,11 +17,22 @@ import java.util.List;
 @Mapper
 public interface ActivityMapper  {
 
-//    @Insert("insert into activity(shop_id,uuid, `name`, is_delete, `status`, create_time, modify_time) " +
-//            "values(#{shopId}, #{uuid}, #{name}, #{isDelete}, #{status}, #{createTime}, #{modifyTime})")
-//    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
+    @Results({
+            @Result(property = "id" , column = "id"),
+            @Result(property = "shopId", column = "shop_id"),
+            @Result(property = "createTime", column = "create_time"),
+            @Result(property = "modifyTime", column = "modify_time")
+    })
+    @Insert("insert into activity(shop_id,uuid, `name`, is_delete, `status`, create_time, modify_time) " +
+            "values(#{shopId}, #{uuid}, #{name}, #{isDelete}, #{status}, #{createTime}, #{modifyTime})")
+    @Options(useGeneratedKeys = true, keyColumn = "id", keyProperty = "id")
     int insertActivity(Activity activity);
 
+    @Results({
+            @Result(property = "shopId", column = "shop_id"),
+            @Result(property = "createTime", column = "create_time"),
+            @Result(property = "modifyTime", column = "modify_time")
+    })
     @Select("select id, shop_id, uuid, name, is_delete, status, create_time, modify_time from activity " +
             "where shop_id=#{shopId} and is_delete =0 and status='NORMAL'")
     List<Activity> selectActivityList(@Param("shopId") Long shopId);

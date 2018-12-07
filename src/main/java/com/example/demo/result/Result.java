@@ -4,7 +4,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 
-public class Result implements Serializable{
+public class Result {
 
     public String getResultCode() {
         return resultCode;

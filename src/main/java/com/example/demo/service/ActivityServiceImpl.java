@@ -38,7 +38,7 @@ public class ActivityServiceImpl  implements ActivityService{
     }
 
     @Override
-    public Activity saveActivity(ActivityDto activityDto) {
+    public void saveActivity(ActivityDto activityDto) {
         Activity activity = new Activity();
         activity.setUuid(UuidUtil.uuid());
         activity.setStatus(activityDto.getStatus());
@@ -52,8 +52,7 @@ public class ActivityServiceImpl  implements ActivityService{
             LOGGER.warn("saveActivity is error | shopId ={} | activityName ={}", activityDto.getShopId(), activityDto.getName());
             throw new BusinessException(CodeMsg.SQL_ERROR, "saveActivity is error:shopId=" + activityDto.getShopId());
         }
-        activity.setId(activityId);
-       return activity;
+       return;
     }
 
     @Override
