@@ -7,7 +7,7 @@ import com.example.demo.result.CodeMsg;
 import com.example.demo.result.ResultData;
 import com.example.demo.result.ResultList;
 import com.example.demo.service.ActivityService;
-import com.mysql.cj.util.StringUtils;
+import com.google.common.base.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +48,9 @@ public class ActivityController {
         resultData.setData(activity);
         return resultData;
     }
+
     @RequestMapping(value = "/findActivity", method = RequestMethod.GET)
+    @ResponseBody
     ResultList<List<Activity>> findActivity(HttpServletRequest request, Long shopId){
         ResultList resultList = new ResultList<>();
         if (shopId == null) {
@@ -59,8 +61,20 @@ public class ActivityController {
         return resultList;
     }
 
+    @RequestMapping(value = "deleteById", method = RequestMethod.GET)
+    @ResponseBody
+    ResultData<Boolean> deleteActivityById(HttpServletRequest request, Integer id) {
+        ResultData<Boolean> resultData = new ResultData<>();
+        if (id == 0 || id == null) {
+            throw new BusinessException(CodeMsg.PARAM_ERROR, "id 不能为空");
+        }
+        activityService.deleteActivityById(id);
+        resultData.setData(true);
+        return resultData;
+    }
+
     private void parameterCalibration(ActivityDto activityDto) {
-        if (StringUtils.isNullOrEmpty(activityDto.getName())) {
+        if (Strings.isNullOrEmpty(activityDto.getName())) {
             throw new BusinessException(CodeMsg.PARAM_ERROR, "name活动名字未设置");
         }
         if (!activityDto.getStatus().equals("NORMAL") || activityDto.getStatus() == null) {

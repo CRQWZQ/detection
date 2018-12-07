@@ -22,4 +22,6 @@ public interface ActivityService {
     List<Activity> findActivityByShopId(Long shopId);
 
     Activity saveActivity(ActivityDto activityDto);
+
+    Boolean deleteActivityById(int id);
 }

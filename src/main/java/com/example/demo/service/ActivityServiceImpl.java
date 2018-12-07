@@ -48,12 +48,23 @@ public class ActivityServiceImpl  implements ActivityService{
         activity.setModifyTime(new Date());
         activity.setCreateTime(new Date());
         int activityId = activityMapper.insertActivity(activity);
-        if (activityId < 100) {
+        if ( activityId < 0 ) {
             LOGGER.warn("saveActivity is error | shopId ={} | activityName ={}", activityDto.getShopId(), activityDto.getName());
             throw new BusinessException(CodeMsg.SQL_ERROR, "saveActivity is error:shopId=" + activityDto.getShopId());
         }
         activity.setId(activityId);
        return activity;
+    }
+
+    @Override
+    public Boolean deleteActivityById(int id) {
+        try {
+            activityMapper.deleteActivityById(id);
+        }catch (Exception e){
+            LOGGER.warn("deleteActivityById is error | id = {}", id);
+            throw new BusinessException(CodeMsg.SQL_ERROR, "deleteActivity is error:id =" + id);
+        }
+        return true;
     }
 
 }

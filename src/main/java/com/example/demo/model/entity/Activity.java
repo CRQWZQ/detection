@@ -16,8 +16,8 @@ import javax.persistence.Table;
  */
 @Data
 @Table(name = "activity")
-@EqualsAndHashCode(callSuper = false)
 public class Activity extends CommonDomain {
+
     @Column(name = "shop_id")
     private Long shopId;
     @Column(name = "uuid")

@@ -1,11 +1,8 @@
 package com.example.demo.model.entity;
 
-import lombok.Data;
 import org.springframework.data.annotation.Id;
-
+import tk.mybatis.mapper.annotation.KeySql;
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -21,12 +18,12 @@ import java.util.Date;
 public class CommonDomain implements Serializable {
     private static final long serialVersionUID = -942922853757839363L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    @KeySql(useGeneratedKeys = true)
+    private Integer id;
     @Column(name = "create_time")
-    Date createTime;
+    private Date createTime;
     @Column(name = "modify_time")
-    Date modifyTime;
+    private Date modifyTime;
 
     public Integer getId() {
         return id;
