@@ -1,11 +1,14 @@
 package com.example.demo.controller;
 
+import com.example.demo.dao.ActivityMapper;
 import com.example.demo.exception.BusinessException;
+import com.example.demo.model.PagedModel;
 import com.example.demo.model.dto.ActivityDto;
 import com.example.demo.model.entity.Activity;
 import com.example.demo.result.CodeMsg;
 import com.example.demo.result.ResultData;
 import com.example.demo.result.ResultList;
+import com.example.demo.result.ResultPagedList;
 import com.example.demo.service.ActivityService;
 import com.google.common.base.Strings;
 import org.slf4j.Logger;
@@ -39,6 +42,8 @@ public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
+    @Autowired
+    private ActivityMapper activityMapper;
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     ResultData<Boolean> saveActivity(HttpServletRequest request, @RequestBody ActivityDto activityDto){
@@ -60,14 +65,24 @@ public class ActivityController {
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
     @ResponseBody
     ResultData<Boolean> deleteActivityById(HttpServletRequest request, Integer id) {
-        ResultData<Boolean> resultData = new ResultData<>();
         if (id == 0 || id == null) {
             throw new BusinessException(CodeMsg.PARAM_ERROR, "id 不能为空");
         }
         activityService.deleteActivityById(id);
-        resultData.setData(true);
-        return resultData;
+        return new ResultData<>(true);
     }
+
+    @RequestMapping(value = "/findActivityByPage", method = RequestMethod.POST)
+    ResultPagedList<Activity> findActivityPage(HttpServletRequest request, @RequestBody PagedModel pagedModel) {
+        if (pagedModel.getShopId() == null ) {
+            throw new BusinessException(CodeMsg.PARAM_ERROR, "shopId不能为空");
+        }
+        List<Activity> activitityList = activityService.findActivityByShopId(pagedModel.getShopId());
+        long count = activityMapper.selectActivityCount(pagedModel.getShopId());
+        return new ResultPagedList<>(activitityList, count, pagedModel);
+    }
+
+
 
     private void parameterCalibration(ActivityDto activityDto) {
         if (Strings.isNullOrEmpty(activityDto.getName())) {

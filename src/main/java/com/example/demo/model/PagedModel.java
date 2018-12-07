@@ -21,6 +21,9 @@ public class PagedModel implements Serializable {
 
     private String orderby;
 
+    //临时字段
+    private Long shopId;
+
 
     public PagedModel() {
         pageSize = 10L;
@@ -76,5 +79,13 @@ public class PagedModel implements Serializable {
 
     public void setOrderby(String orderby) {
         this.orderby = orderby;
+    }
+
+    public Long getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Long shopId) {
+        this.shopId = shopId;
     }
 }
