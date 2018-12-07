@@ -42,23 +42,19 @@ public class ActivityController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     ResultData<Boolean> saveActivity(HttpServletRequest request, @RequestBody ActivityDto activityDto){
-        ResultData<Boolean> resultData = new ResultData<>();
         parameterCalibration(activityDto);
         activityService.saveActivity(activityDto);
-        resultData.setData(true);
         return new ResultData<>(true);
     }
 
     @RequestMapping(value = "/findActivity", method = RequestMethod.GET)
     @ResponseBody
-    ResultList<List<Activity>> findActivity(HttpServletRequest request, Long shopId){
-        ResultList resultList = new ResultList<>();
+    ResultList<Activity> findActivity(HttpServletRequest request, Long shopId){
         if (shopId == null) {
             throw new BusinessException(CodeMsg.PARAM_ERROR, "请求shopId为空");
         }
         List<Activity> activityList = activityService.findActivityByShopId(shopId);
-        resultList.setData(activityList);
-        return resultList;
+        return new ResultList<>(activityList);
     }
 
     @RequestMapping(value = "deleteById", method = RequestMethod.GET)
