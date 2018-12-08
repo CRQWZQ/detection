@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,7 +83,16 @@ public class ActivityController {
         return new ResultPagedList<>(activitityList, count, pagedModel);
     }
 
-
+    @RequestMapping(value = "/updateStatus", method = RequestMethod.GET)
+    @ResponseBody
+    ResultData<Boolean> updateActivityStatus (HttpServletRequest request, Integer id, String status){
+        if (id == null || StringUtils.isEmpty(status)) {
+            LOGGER.warn("");
+            throw new BusinessException(CodeMsg.PARAM_ERROR, "id or status 不能为空");
+        }
+        activityService.updateActivityStatus(id, status);
+        return new ResultData<>(true);
+    }
 
     private void parameterCalibration(ActivityDto activityDto) {
         if (Strings.isNullOrEmpty(activityDto.getName())) {

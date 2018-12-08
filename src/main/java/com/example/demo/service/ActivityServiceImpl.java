@@ -66,4 +66,15 @@ public class ActivityServiceImpl  implements ActivityService{
         return true;
     }
 
+    @Override
+    public void updateActivityStatus(Integer id, String status) {
+        try {
+            activityMapper.updateActivityStatus(id, status);
+        }catch (Exception e){
+            LOGGER.warn("updateActivityStatus is error | id ={} | status = {}",id, status);
+            throw new BusinessException(CodeMsg.SQL_ERROR, "updateActivityStatus is error: id=" + id + " |status= " + status );
+        }
+        return;
+    }
+
 }

@@ -24,4 +24,6 @@ public interface ActivityService {
     void saveActivity(ActivityDto activityDto);
 
     Boolean deleteActivityById(int id);
+
+    void updateActivityStatus(Integer id, String status);
 }
