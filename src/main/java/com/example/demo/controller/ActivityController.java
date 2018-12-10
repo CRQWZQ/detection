@@ -96,7 +96,7 @@ public class ActivityController {
         return new ResultData<>(true);
     }
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/activitySharingList", method = RequestMethod.GET)
     @ResponseBody
     ResultList<ActivityVo> selectActivitySharingList(HttpServletRequest request ,@RequestParam Long shopId) {
         if (shopId == null ) {
@@ -116,6 +116,7 @@ public class ActivityController {
         }
         for (Activity activity : activityList) {
             ActivityVo activityVo = ActivityVo.vauleOf(activity);
+
             activityVoList.add(activityVo);
         }
 
