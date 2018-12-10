@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -71,4 +72,22 @@ public class TimeConvertUtil {
         return date;
     }
 
+    /**
+     * 求延迟指定小时后的时间
+     * @param date 需要处理的时间
+     * @param hour 延迟多少个小时
+     * @return 返回Date类型
+     */
+    public static Date getDelayByEndTime (Date date , int hour) {
+        try {
+            Calendar calendar  =   Calendar.getInstance();
+            calendar.setTime(date);
+            calendar.add(calendar.HOUR_OF_DAY, hour);
+            return calendar.getTime();
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 }

@@ -5,6 +5,7 @@ import com.example.demo.exception.BusinessException;
 import com.example.demo.model.PagedModel;
 import com.example.demo.model.dto.ActivityDto;
 import com.example.demo.model.entity.Activity;
+import com.example.demo.model.vo.ActivityVo;
 import com.example.demo.result.CodeMsg;
 import com.example.demo.result.ResultData;
 import com.example.demo.result.ResultList;
@@ -24,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -87,11 +89,36 @@ public class ActivityController {
     @ResponseBody
     ResultData<Boolean> updateActivityStatus (HttpServletRequest request, Integer id, String status){
         if (id == null || StringUtils.isEmpty(status)) {
-            LOGGER.warn("");
+            LOGGER.warn("updateActivityStatus is error: status is null !");
             throw new BusinessException(CodeMsg.PARAM_ERROR, "id or status 不能为空");
         }
         activityService.updateActivityStatus(id, status);
         return new ResultData<>(true);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    @ResponseBody
+    ResultList<ActivityVo> selectActivitySharingList(HttpServletRequest request ,@RequestParam Long shopId) {
+        if (shopId == null ) {
+            LOGGER.warn("selectActivitySharingList is error : shopId is null !");
+            throw new BusinessException(CodeMsg.PARAM_ERROR, "shopId 不能为空");
+        }
+        List <Activity> activityList  = activityService.findActivityByShopId(shopId);
+        List<ActivityVo> activityVoList = new ArrayList<>();
+        activityTransformActivityVo(activityList, activityVoList);
+
+        return new ResultList<ActivityVo>(activityVoList);
+    }
+
+    private void activityTransformActivityVo(List<Activity> activityList, List<ActivityVo> activityVoList) {
+        if (activityList.size() == 0 || activityList == null) {
+            return;
+        }
+        for (Activity activity : activityList) {
+            ActivityVo activityVo = ActivityVo.vauleOf(activity);
+            activityVoList.add(activityVo);
+        }
+
     }
 
     private void parameterCalibration(ActivityDto activityDto) {
