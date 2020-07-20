@@ -13,12 +13,10 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * 杭州蓝诗网络科技有限公司 版权所有 © Copyright 2018<br>
  *
  * @Description: <br>
  * @Project: <br>
  * @CreateDate: Created by 2018/12/07 <br>
- * @Author: <a href="wangzhiqiang@quannengzhanggui.cn">wzq</a>
  */
 @Configuration
 public class MybatisConfig {

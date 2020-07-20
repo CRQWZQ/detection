@@ -1,9 +1,5 @@
 package com.example.demo.result;
 
-import lombok.Data;
-import java.io.Serializable;
-
-
 public class Result {
 
     public String getResultCode() {

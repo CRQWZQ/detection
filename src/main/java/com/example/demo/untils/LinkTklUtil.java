@@ -17,12 +17,10 @@ import java.util.List;
 import static com.example.demo.untils.SimpleHttpUtils.userAgentMap;
 
 /**
- * 杭州蓝诗网络科技有限公司 版权所有 © Copyright 2018<br>
  *
  * @Description: 淘口令链接转换<br>
  * @Project: <br>
  * @CreateDate: Created by 2018/12/04 <br>
- * @Author: <a href="wangzhiqiang@quannengzhanggui.cn">wzq</a>
  */
 public class LinkTklUtil {
 

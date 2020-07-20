@@ -1,12 +1,10 @@
 package com.example.demo.exception;
 
 /**
- * 杭州蓝诗网络科技有限公司 版权所有 © Copyright 2018<br>
  *
  * @Description: 业务异常<br>
  * @Project: <br>
  * @CreateDate: Created by 2018/12/05 <br>
- * @Author: <a href="wangzhiqiang@quannengzhanggui.cn">wzq</a>
  */
 public class BusinessException extends RuntimeException{
 
